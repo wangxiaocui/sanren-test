@@ -128,6 +128,10 @@
           <stringProp name="IncludeController.includepath">activity-creator.jmx</stringProp>
         </IncludeController>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="活动-参与人" enabled="true">
+          <stringProp name="IncludeController.includepath">activity-joiner.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
