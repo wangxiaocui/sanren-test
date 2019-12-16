@@ -28,7 +28,7 @@
 <xsl:output method="html" indent="yes" encoding="UTF-8" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" />
 
 <!-- Defined parameters (overrideable) -->
-<xsl:param    name="showData" select="'n'"/>
+<xsl:param    name="showData" select="'y'"/>
 <xsl:param    name="titleReport" select="'三人行接口监测报告'"/>
 
 
