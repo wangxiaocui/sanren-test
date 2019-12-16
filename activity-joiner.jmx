@@ -21,7 +21,7 @@
           <stringProp name="HTTPSampler.domain">${host_interface}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
@@ -150,6 +150,8 @@ for(int i=0;i&lt;listArray.size();i++){
 	
 	 String segmentType = listArray.getJSONObject(i).getString(&quot;segmentType&quot;);
 	 String segmentId = listArray.getJSONObject(i).getString(&quot;segmentId&quot;);
+	 log.info(&quot;segmentType:&quot;+segmentType);
+	 log.info(&quot;segmentId&quot;+segmentId);
 switch(segmentType){
 	case &quot;task&quot;:
 			vars.put(&quot;taskid&quot;,segmentId);
