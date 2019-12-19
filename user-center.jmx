@@ -413,14 +413,23 @@
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="我的素材库-上传素材-图片" enabled="true"/>
         <hashTree>
-          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="文件上传至阿里云" enabled="true">
-            <stringProp name="BeanShellSampler.query">import com.aliyun.oss.OSS;
+          <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="ForEach Controller" enabled="true">
+            <stringProp name="ForeachController.inputVal">file</stringProp>
+            <stringProp name="ForeachController.returnVal">fileName</stringProp>
+            <boolProp name="ForeachController.useSeparator">true</boolProp>
+            <stringProp name="ForeachController.startIndex">0</stringProp>
+            <stringProp name="ForeachController.endIndex">3</stringProp>
+          </ForeachController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="文件上传至阿里云" enabled="true">
+              <stringProp name="BeanShellSampler.query">import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 
 import java.io.File;
 
+String name = &quot;${fileName}&quot;;
 try{
      String endpoint = &quot;https://oss-cn-beijing.aliyuncs.com&quot;;
 	// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
@@ -429,6 +438,7 @@ try{
 	String securityToken = &quot;${securityToken}&quot;;
 	String absolutePath = bsh.args[0];
 	String picName = &quot;pic.jpg&quot;;
+	String suffix = name.substring(name.lastIndexOf(&quot;.&quot;));
      int l = accessKeyId.length();
 	String fileName = String.valueOf(System.currentTimeMillis())+accessKeyId.substring(l-10,l);
 	log.info(fileName);
@@ -436,7 +446,7 @@ try{
 	OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret,securityToken);
 
 	// 创建PutObjectRequest对象。
-	PutObjectRequest putObjectRequest = new PutObjectRequest(&quot;${bucketName}&quot;, &quot;${path}&quot;+fileName+&quot;.jpg&quot;, new File(absolutePath+File.separator+&quot;res&quot;+File.separator+picName));
+	PutObjectRequest putObjectRequest = new PutObjectRequest(&quot;${bucketName}&quot;, &quot;${path}&quot;+fileName+suffix, new File(absolutePath+File.separator+&quot;res&quot;+File.separator+&quot;${fileName}&quot;));
 
 	// 如果需要上传时设置存储类型与访问权限，请参考以下示例代码。
 	// ObjectMetadata metadata = new ObjectMetadata();
@@ -451,48 +461,69 @@ try{
 	// 关闭OSSClient。
 	ossClient.shutdown(); 
 
-     String fileurl = &quot;https://${bucketName}&quot; + &quot;.oss-cn-beijing.aliyuncs.com&quot; + &quot;/&quot; + &quot;${path}&quot;+fileName+&quot;.jpg&quot;;
+     String fileurl = &quot;https://${bucketName}&quot; + &quot;.oss-cn-beijing.aliyuncs.com&quot; + &quot;/&quot; + &quot;${path}&quot;+fileName+suffix;
 	vars.put(&quot;fileurl&quot;,fileurl);
-	vars.put(&quot;picName&quot;,picName);
+	vars.put(&quot;filename&quot;,&quot;${fileName}&quot;);
 
 }catch(Throwable ex) {
     log.error(&quot;Failed&quot;, ex);
 }</stringProp>
-            <stringProp name="BeanShellSampler.filename"></stringProp>
-            <stringProp name="BeanShellSampler.parameters">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
-            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-          </BeanShellSampler>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="上传到我的素材库" enabled="true">
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-	&quot;materialFullName&quot;: &quot;${picName}&quot;,&#xd;
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="上传素材到我的素材库" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;materialFullName&quot;: &quot;${filename}&quot;,&#xd;
 	&quot;materialHash&quot;: &quot;8991425AFAB1918177AB7B9158DAA70B&quot;,&#xd;
 	&quot;materialSize&quot;: 58880,&#xd;
 	&quot;materialUrl&quot;: &quot;${fileurl}&quot;&#xd;
 }</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
-            <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/material-center/publish</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/material-center/publish</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+          </hashTree>
+          <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="file_1" elementType="Argument">
+                <stringProp name="Argument.name">file_1</stringProp>
+                <stringProp name="Argument.value">pic.jpg</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="file_2" elementType="Argument">
+                <stringProp name="Argument.name">file_2</stringProp>
+                <stringProp name="Argument.value">认识分数教学目标确定.docx</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="file_3" elementType="Argument">
+                <stringProp name="Argument.name">file_3</stringProp>
+                <stringProp name="Argument.value">西十区第二十七期.mp4</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </Arguments>
           <hashTree/>
         </hashTree>
       </hashTree>
