@@ -496,7 +496,7 @@
 	&quot;expectDuration&quot;: &quot;1&quot;,&#xd;
 	&quot;courseId&quot;: &quot;${activityID}&quot;,&#xd;
 	&quot;title&quot;: &quot;会议123&quot;,&#xd;
-	&quot;segmentType&quot;: &quot;meeting&quot;,&#xd;
+	&quot;segmentType&quot;: &quot;meeting-plus&quot;,&#xd;
 	&quot;startTime&quot;: &quot;${startTime}&quot;,&#xd;
 	&quot;description&quot;: &quot;&quot;&#xd;
 }</stringProp>

@@ -136,6 +136,10 @@
           <stringProp name="IncludeController.includepath">collaboration.jmx</stringProp>
         </IncludeController>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="课程" enabled="true">
+          <stringProp name="IncludeController.includepath">course-center.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
