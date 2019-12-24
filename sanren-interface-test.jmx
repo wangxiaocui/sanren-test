@@ -144,6 +144,10 @@
           <stringProp name="IncludeController.includepath">moment-center.jmx</stringProp>
         </IncludeController>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="资源中心" enabled="true">
+          <stringProp name="IncludeController.includepath">asset-center.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
