@@ -456,6 +456,164 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取资源标签" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+	&quot;count&quot;: 5,&#xd;
+	&quot;scope&quot;: &quot;all-public&quot;,&#xd;
+	&quot;parentAssetType&quot;: &quot;teaching&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/asset-center/asset/tag/get</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="发布资源指定小组可见时协作组列表" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/user-hub/coopGroup/userRefCoopGroups</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="素材库列表" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+	&quot;pageIndex&quot;: 1,&#xd;
+	&quot;materialType&quot;: &quot;document,audio_only,video_only,img,other&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/material-center/search</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">materialId;materialUrl;materialSize;materialName;materialSizeFormat;materialType</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.rows[0].materialId;$.data.rows[0].materialUrl;$.data.rows[0].materialSize;$.data.rows[0].materialName;$.data.rows[0].materialSizeFormat;$.data.rows[0].materialType</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0;0;0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="发布资源" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+	&quot;parentAssetType&quot;: &quot;teaching&quot;,&#xd;
+	&quot;assetType&quot;: &quot;teaching-design&quot;,&#xd;
+	&quot;assetFiles&quot;: [{&#xd;
+		&quot;fileName&quot;: &quot;${materialName}&quot;,&#xd;
+		&quot;filePath&quot;: &quot;${materialUrl}&quot;,&#xd;
+		&quot;fileSize&quot;: &quot;${materialSize}&quot;,&#xd;
+		&quot;materialId&quot;: &quot;${materialId}&quot;,&#xd;
+		&quot;fileSizeFormat&quot;: &quot;${materialSizeFormat}&quot;,&#xd;
+		&quot;fileNameExtension&quot;: &quot;${materialType}&quot;&#xd;
+	}],&#xd;
+	&quot;bookVersionId&quot;: &quot;&quot;,&#xd;
+	&quot;bookVersionName&quot;: &quot;&quot;,&#xd;
+	&quot;chapterId&quot;: &quot;&quot;,&#xd;
+	&quot;chapterName&quot;: &quot;&quot;,&#xd;
+	&quot;gradeId&quot;: &quot;&quot;,&#xd;
+	&quot;stageId&quot;: 1201,&#xd;
+	&quot;gradeName&quot;: &quot;&quot;,&#xd;
+	&quot;imageList&quot;: [],&#xd;
+	&quot;scope&quot;: &quot;all-public&quot;,&#xd;
+	&quot;specialistContentId&quot;: &quot;&quot;,&#xd;
+	&quot;richTextChapter&quot;: &quot;&quot;,&#xd;
+	&quot;purviewGroups&quot;: [],&#xd;
+	&quot;downloaded&quot;: true,&#xd;
+	&quot;personalSignature&quot;: true,&#xd;
+	&quot;groupSignature&quot;: false,&#xd;
+	&quot;signatureGroupId&quot;: &quot;&quot;,&#xd;
+	&quot;signatureGroupName&quot;: &quot;&quot;,&#xd;
+	&quot;subjectId&quot;: 1128,&#xd;
+	&quot;tags&quot;: [],&#xd;
+	&quot;textParagraph&quot;: {&#xd;
+		&quot;textChapterList&quot;: []&#xd;
+	},&#xd;
+	&quot;title&quot;: &quot;教学设计&quot;,&#xd;
+	&quot;subchapterId&quot;: &quot;&quot;,&#xd;
+	&quot;subchapterName&quot;: &quot;&quot;,&#xd;
+	&quot;subsubchapterId&quot;: &quot;&quot;,&#xd;
+	&quot;subsubchapterName&quot;: &quot;&quot;,&#xd;
+	&quot;textParagraphList&quot;: []&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/asset-center/asset/publish</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
