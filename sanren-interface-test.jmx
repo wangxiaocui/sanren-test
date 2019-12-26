@@ -148,6 +148,10 @@
           <stringProp name="IncludeController.includepath">asset-center.jmx</stringProp>
         </IncludeController>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="教学中心" enabled="true">
+          <stringProp name="IncludeController.includepath">homework-center.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>
