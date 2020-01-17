@@ -556,6 +556,83 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="查看素材" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;pageIndex&quot;: 1,&#xd;
+	&quot;materialType&quot;: &quot;audio_only,video_only,document&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/material-center/search</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray; 
+import com.alibaba.fastjson.JSONObject;
+
+
+String materialId=&quot;&quot;;
+String materialId2=&quot;&quot;;
+try{
+
+String resObj = prev.getResponseDataAsString();
+
+JSONObject responseObj = JSON.parseObject(resObj); 
+JSONArray listArray = responseObj.getJSONObject(&quot;data&quot;).getJSONArray(&quot;rows&quot;);
+
+for(int i=0;i&lt;listArray.size();i++){
+	
+	 String materialStatus = listArray.getJSONObject(i).getString(&quot;materialStatus&quot;);
+	 String materialType = listArray.getJSONObject(i).getString(&quot;materialType&quot;);
+	 if (materialId.length()&gt;0 &amp;&amp; materialId2.length()&gt;0){
+	 	break;
+	 }
+	 if(materialStatus.equals(&quot;usable&quot;) &amp;&amp; materialType.equals(&quot;doc&quot;)){
+	 	materialId = listArray.getJSONObject(i).getString(&quot;materialId&quot;);
+	 	
+	 }
+	else if(materialStatus.equals(&quot;usable&quot;) &amp;&amp; materialType.equals(&quot;video&quot;)){
+	 	materialId2 = listArray.getJSONObject(i).getString(&quot;materialId&quot;);
+	 	
+	 }
+	 
+	 
+	 
+	}
+
+
+}catch (Throwable ex) {
+    log.error(&quot;Failed!&quot;, ex);
+}
+log.info(&quot;materialId:&quot;+materialId);
+vars.put(&quot;materialId&quot;,materialId);
+vars.put(&quot;materialId2&quot;,materialId2);</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="创建文档" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -567,7 +644,7 @@
 	&quot;allowDownload&quot;: true,&#xd;
 	&quot;courseId&quot;: &quot;${activityID}&quot;,&#xd;
 	&quot;title&quot;: &quot;文档&quot;,&#xd;
-	&quot;materialId&quot;: &quot;3389139486179926017&quot;,&#xd;
+	&quot;materialId&quot;: &quot;${materialId}&quot;,&#xd;
 	&quot;description&quot;: &quot;&quot;,&#xd;
 	&quot;segmentType&quot;: &quot;document&quot;,&#xd;
 	&quot;viewInProgress&quot;: false&#xd;
@@ -602,7 +679,7 @@
 	&quot;allowDownload&quot;: true,&#xd;
 	&quot;courseId&quot;: &quot;${activityID}&quot;,&#xd;
 	&quot;title&quot;: &quot;音频&quot;,&#xd;
-	&quot;materialId&quot;: &quot;3379619570909257729&quot;,&#xd;
+	&quot;materialId&quot;: &quot;${materialId2}&quot;,&#xd;
 	&quot;description&quot;: &quot;&quot;,&#xd;
 	&quot;segmentType&quot;: &quot;video&quot;,&#xd;
 	&quot;viewInProgress&quot;: false&#xd;

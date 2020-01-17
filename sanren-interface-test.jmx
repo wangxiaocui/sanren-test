@@ -16,13 +16,13 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="host_interface" elementType="Argument">
             <stringProp name="Argument.name">host_interface</stringProp>
-            <stringProp name="Argument.value">${__property(host_interface,,api-dev.3ren.cn)}</stringProp>
+            <stringProp name="Argument.value">${__property(host_interface,,api.3ren.cn)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">接口服务器</stringProp>
           </elementProp>
           <elementProp name="host_page" elementType="Argument">
             <stringProp name="Argument.name">host_page</stringProp>
-            <stringProp name="Argument.value">${__property(host_page,,www-dev.3ren.cn)}</stringProp>
+            <stringProp name="Argument.value">${__property(host_page,,www.3ren.cn)}</stringProp>
             <stringProp name="Argument.desc">页面域名</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
